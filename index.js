@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import db from './config/database.js'
 import userRoutes from './routes/user.js';
+import messageRoutes from './routes/message.js';
 
 const app = express();
 dotenv.config();
@@ -22,3 +23,4 @@ db.connect().then(obj => {
 })
 
 app.use('/users', userRoutes);
+app.use('/messages', messageRoutes);
