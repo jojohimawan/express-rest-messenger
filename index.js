@@ -4,6 +4,7 @@ import db from './config/database.js'
 import userRoutes from './routes/user.js';
 import messageRoutes from './routes/message.js';
 import roomRoutes from './routes/room.js';
+import memberRoutes from './routes/member.js';
 
 const app = express();
 dotenv.config();
@@ -26,3 +27,4 @@ db.connect().then(obj => {
 app.use('/users', userRoutes);
 app.use('/messages', messageRoutes);
 app.use('/rooms', roomRoutes);
+app.use('/members', memberRoutes);
