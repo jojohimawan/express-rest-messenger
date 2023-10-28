@@ -61,8 +61,14 @@ const updateMessage = async (req, res) => {
 const deleteMessage = async (req, res) => {
     try {
         await messageModel.deleteMessage(req.params.id);
+        res.status(200).json({
+            message: 'Success delete message'
+        });
     } catch (err) {
-        
+        res.status(500).json({
+            message: 'Failed to delete message'
+        });
+        console.log('Controller Error: ' + err.message || err);
     }
 };
 

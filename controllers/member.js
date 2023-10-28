@@ -32,7 +32,7 @@ const getRoomMembers = async (req, res) => {
 
 const createMember = async (req, res) => {
     try {
-        await memberModel.createMember(req.body.room_id, req.body.user_id);
+        await memberModel.createMember(req.body.room_id, req.body.member_id);
         res.status(200).json({
             message: 'Success create member'
         });
@@ -46,7 +46,7 @@ const createMember = async (req, res) => {
 
 const deleteMember = async (req, res) => {
     try {
-        await memberModel.deleteMember(req.body.room_id, req.body.user_id);
+        await memberModel.deleteMember(req.body.room_id, req.body.member_id);
         res.status(200).json({
             message: 'Success delete member'
         });
