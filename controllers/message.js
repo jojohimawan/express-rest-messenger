@@ -32,7 +32,7 @@ const getMessagesFromUser = async (req, res) => {
 
 const createMessage = async (req, res) => {
     try {
-        await messageModel.createMessage(req.body.room_id, req.body.sender_id, req.body.pesan);
+        await messageModel.createMessage(req.body.room_id, req.body.sender_id, req.body.pesan, req.body.is_deleted);
         res.status(200).json({
             message: 'Success create message'
         });
@@ -72,10 +72,26 @@ const deleteMessage = async (req, res) => {
     }
 };
 
+const getMessagebByRoomId = async (req, res) => {
+    try {
+        const messages = await messageModel.getMessagebByRoomId(req.params.room_id);
+        res.status(200).json({
+            message: 'Success get messages from one room',
+            data: messages
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: 'Failed to get messages from one room'
+        });
+        console.log('Controller Error: ' + err.message || err);
+    }
+};
+
 export default {
     getAllMessages,
     getMessagesFromUser,
     createMessage,
     updateMessage,
-    deleteMessage
+    deleteMessage,
+    getMessagebByRoomId
 }

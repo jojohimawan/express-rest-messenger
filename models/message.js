@@ -18,9 +18,9 @@ const getMessagesFromUser = async (sender_id) => {
     }
 };
 
-const createMessage = async (room_id, sender_id, pesan) => {
+const createMessage = async (room_id, sender_id, pesan, is_deleted) => {
     try {
-        await db.none('INSERT INTO chat (room_id, sender_id, pesan) VALUES ($1, $2, $3)', [room_id, sender_id, pesan]);
+        await db.none('INSERT INTO chat (room_id, sender_id, pesan, is_deleted) VALUES ($1, $2, $3, $4)', [room_id, sender_id, pesan, is_deleted]);
     } catch (err) {
         throw err;
     }
@@ -42,10 +42,20 @@ const deleteMessage = async (id) => {
     }
 };
 
+const getMessagebByRoomId = async (room_id) => {
+    try {
+        const messages = await db.any('SELECT * FROM chat WHERE room_id = $1', room_id);
+        return messages;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export default {
     getAllMessages,
     getMessagesFromUser,
     createMessage,
     updateMessage,
-    deleteMessage
+    deleteMessage,
+    getMessagebByRoomId
 }

@@ -32,7 +32,7 @@ const getUser = async(req, res) => {
 
 const createUser = async(req, res) => {
     try {
-        await userModel.createUser(req.body.name);
+        await userModel.createUser(req.body.name, req.body.password);
         res.status(200).json({
             message: 'Success create user'
         });

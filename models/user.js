@@ -18,9 +18,9 @@ const getUser = async (id) => {
     }
 };
 
-const createUser = async (name) => {
+const createUser = async (name, password) => {
     try {
-        await db.none('INSERT INTO pengguna (nama) VALUES ($1)', name);
+        await db.none('INSERT INTO pengguna (nama, password) VALUES ($1, $2)', [name, password]);
     } catch (err) {
         throw err;
     }

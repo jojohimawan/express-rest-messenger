@@ -32,7 +32,7 @@ const getRoom = async (req, res) => {
 
 const createRoom = async (req, res) => {
     try {
-        await roomModel.createRoom(req.body.host_id);
+        await roomModel.createRoom(req.body.host_id, req.body.room_name);
         res.status(200).json({
             message: 'Success create room'
         });
@@ -58,9 +58,56 @@ const deleteRoom = async (req, res) => {
     }
 };
 
+const getEnrolledRooms = async (req, res) => {
+    try {
+        const rooms = await roomModel.getEnrolledRooms(req.params.user_id);
+        res.status(200).json({
+            message: 'Success get enrolled rooms',
+            data: rooms
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: 'Failed to get enrolled rooms'
+        });
+        console.log('Controller Error: ' + err.message || err);
+    }
+};
+
+const getHostedRooms = async (req, res) => {
+    try {
+        const rooms = await roomModel.getHostedRooms(req.params.user_id);
+        res.status(200).json({
+            message: 'Success get hosted rooms',
+            data: rooms
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: 'Failed to get hosted rooms'
+        });
+        console.log('Controller Error: ' + err.message || err);
+    }
+};
+
+const enrollRoom = async (req, res) => {
+    try {
+        await roomModel.enrollRoom(req.body.room_id, req.body.member_id);
+        res.status(200).json({
+            message: 'Success enroll room'
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: 'Failed to enroll room'
+        });
+        console.log('Controller Error: ' + err.message || err);
+    }
+};
+
 export default {
     getAllRooms,
     getRoom,
     createRoom,
-    deleteRoom
+    deleteRoom,
+    getEnrolledRooms,
+    getHostedRooms,
+    enrollRoom
 }
